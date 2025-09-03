@@ -1,4 +1,6 @@
-class LoginUser {
+import 'package:job_ghar/model/user/user.dart';
+
+class LoginUser extends BaseUser{
   String email;
   String password;
 
@@ -13,7 +15,8 @@ class LoginUser {
       password: json['password'],
     );
   }
-
+  
+  @override
   Map<String, dynamic> toJson() {
     return {
       'email': email,

@@ -1,4 +1,6 @@
-class RegisterUser {
+import 'package:job_ghar/model/user/user.dart';
+
+class RegisterUser extends BaseUser{
   String name;
   String role;
   String email;
@@ -26,6 +28,7 @@ class RegisterUser {
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'name': name,
