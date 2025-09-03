@@ -24,3 +24,6 @@ Future<bool> logoutUser() async {
   }
   return false; 
 }
+class AuthService {
+
+}
