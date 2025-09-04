@@ -4,26 +4,26 @@ import 'dart:convert';
 
 Future<bool> logoutUser() async {
   final prefs = await SharedPreferences.getInstance();
-  final token = prefs.getString('auth_token'); 
+  final token = prefs.getString('auth_token');
   if (token == null) return false;
 
   final response = await http.get(
     Uri.parse('https://jobghar-backend.onrender.com/auth/logout'),
-    headers: {
-      'Authorization': 'Bearer $token',
-      'Accept': '*/*',
-    },
+    headers: {'Authorization': 'Bearer $token', 'Accept': '*/*'},
   );
 
   if (response.statusCode == 200) {
-    final jsonResponse = json.decode(response.body); 
+    final jsonResponse = json.decode(response.body);
     if (jsonResponse['success'] == true) {
-      await prefs.remove('auth_token'); 
+      await prefs.remove('auth_token');
       return true;
     }
   }
-  return false; 
+  return false;
 }
-class AuthService {
 
+class AuthService {
+  final baseUrl = "https://jobghar-backend.onrender.com/auth";
+
+  Future<void> loginUser() async {}
 }
