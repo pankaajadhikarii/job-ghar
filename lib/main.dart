@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:job_ghar/view/home/home_screen.dart';
+import 'package:job_ghar/core/router/router_config.dart';
 
 void main() {
+  AppRouter.setUpRouter();
   runApp(const MyApp());
 }
 
@@ -10,9 +11,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
-      home: HomeScreen()
+      routerConfig: AppRouter.router,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

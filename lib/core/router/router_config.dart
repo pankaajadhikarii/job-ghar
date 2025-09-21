@@ -10,13 +10,23 @@ class AppRouter {
       GlobalKey<NavigatorState>();
   static void setUpRouter() {
     router = GoRouter(
+      navigatorKey: rootNavigatorKey,
+      initialLocation: '/login-screen',
+      debugLogDiagnostics: true,
+      redirect: (context, state) {
+        final currentPath = state.uri.path;
+        if (currentPath == '/') {
+          return '/login-screen';
+        }
+        return null;
+      },
       routes: [
         GoRoute(
-          path: '/login',
+          path: '/login-screen',
           builder: (context, state) => const LoginScreen(),
         ),
         GoRoute(
-          path: '/signup',
+          path: '/signup-screen',
           builder: (context, state) => const SignupScreen(),
         ),
         GoRoute(
