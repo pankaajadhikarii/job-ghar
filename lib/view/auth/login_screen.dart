@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:job_ghar/core/constant/app_color.dart';
+import 'package:job_ghar/widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -38,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         const Spacer(flex: 2),
                         Container(
-                          height: 380,
+                          height: 335,
                           width: double.maxFinite,
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
@@ -61,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    _buildTextFormField(
+                                    buildTextFormField(
                                       controller: _emailController,
                                       keyboardType: TextInputType.text,
                                       labelText: "Email",
@@ -73,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         return null;
                                       },
                                     ),
-                                    _buildTextFormField(
+                                    buildTextFormField(
                                       controller: _passwordController,
                                       keyboardType:
                                           TextInputType.visiblePassword,
@@ -137,56 +138,4 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-Widget _buildTextFormField({
-  required TextEditingController controller,
-  required TextInputType keyboardType,
-  required String labelText,
-  required IconData icon,
-  bool obscureText = false,
-  Widget? suffixIcon,
-  String? Function(String?)? validator,
-}) {
-  return Container(
-    margin: EdgeInsets.only(top: 25),
-    child: TextFormField(
-      validator: validator,
-      controller: controller,
-      keyboardType: keyboardType,
-      obscureText: obscureText,
-      style: const TextStyle(fontSize: 15, color: AppColor.secondary),
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 15,
-        ),
-        prefixIcon: Icon(icon),
-        labelText: labelText,
-        labelStyle: const TextStyle(fontSize: 15, color: AppColor.secondary),
-        floatingLabelStyle: const TextStyle(
-          fontSize: 15,
-          color: AppColor.secondary,
-        ),
-        filled: true,
-        fillColor: AppColor.primary,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: AppColor.inactive),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColor.secondary),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: AppColor.primaryRed, width: 2),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: AppColor.primaryRed),
-        ),
-        floatingLabelBehavior: FloatingLabelBehavior.auto,
-        suffixIcon: suffixIcon,
-      ),
-    ),
-  );
-}
+
