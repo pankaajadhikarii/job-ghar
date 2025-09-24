@@ -15,6 +15,13 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscureText = true;
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.primary,
@@ -31,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         const Spacer(flex: 2),
                         Container(
-                          height: 500,
+                          height: 380,
                           width: double.maxFinite,
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
@@ -49,154 +56,64 @@ class _LoginScreenState extends State<LoginScreen> {
                                   fontWeight: FontWeight.w900,
                                 ),
                               ),
-                              const SizedBox(height: 20),
                               Form(
                                 key: _formKey,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    TextFormField(
+                                    _buildTextFormField(
                                       controller: _emailController,
-                                      keyboardType: TextInputType.emailAddress,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: AppColor.secondary,
-                                      ),
-                                      decoration: InputDecoration(
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                              horizontal: 10,
-                                              vertical: 15,
-                                            ),
-                                        prefixIcon: Icon(
-                                          Icons.email_outlined,
-                                          color: AppColor.secondary,
-                                        ),
-                                        labelText: "Email",
-                                        labelStyle: const TextStyle(
-                                          fontSize: 16,
-                                          color: AppColor.secondary,
-                                        ),
-                                        floatingLabelStyle: const TextStyle(
-                                          fontSize: 16,
-                                          color: AppColor.secondary,
-                                        ),
-                                        filled: true,
-                                        fillColor: AppColor.primary,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            10,
-                                          ),
-                                          borderSide: const BorderSide(
-                                            color: AppColor.secondary,
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            10,
-                                          ),
-                                          borderSide: BorderSide(
-                                            color: AppColor.secondary,
-                                          ),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            10,
-                                          ),
-                                          borderSide: const BorderSide(
-                                            color: AppColor.primaryRed,
-                                            width: 2,
-                                          ),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            10,
-                                          ),
-                                          borderSide: const BorderSide(
-                                            color: AppColor.primaryRed,
-                                          ),
-                                        ),
-                                        floatingLabelBehavior:
-                                            FloatingLabelBehavior.auto,
-                                      ),
+                                      keyboardType: TextInputType.text,
+                                      labelText: "Email",
+                                      icon: Icons.email_outlined,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return ("Email is requird");
+                                        }
+                                        return null;
+                                      },
                                     ),
-                                    const SizedBox(height: 25),
-                                    TextFormField(
+                                    _buildTextFormField(
                                       controller: _passwordController,
                                       keyboardType:
                                           TextInputType.visiblePassword,
-                                      obscureText: _obscureText,
-                                      style: const TextStyle(
-                                        fontSize: 15,
-                                        color: AppColor.secondary,
+                                      labelText: "Password",
+                                      icon: Icons.lock_outline,
+                                      suffixIcon: IconButton(
+                                        icon: Icon(
+                                          _obscureText
+                                              ? Icons.visibility_off
+                                              : Icons.visibility,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _obscureText = !_obscureText;
+                                          });
+                                        },
                                       ),
-                                      decoration: InputDecoration(
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                              horizontal: 10,
-                                              vertical: 15,
-                                            ),
-                                        prefixIcon: Icon(
-                                          Icons.lock_outline,
-                                          color: AppColor.secondary,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return "Password is required";
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    SizedBox(height: 40),
+                                    SizedBox(
+                                      height: 50,
+                                      width: double.maxFinite,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: AppColor.secondary,
                                         ),
-                                        labelText: "Password",
-                                        labelStyle: const TextStyle(
-                                          fontSize: 15,
-                                          color: AppColor.secondary,
-                                        ),
-                                        floatingLabelStyle: const TextStyle(
-                                          fontSize: 15,
-                                          color: AppColor.secondary,
-                                        ),
-                                        filled: true,
-                                        fillColor: AppColor.primary,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            10,
+                                        onPressed: () {},
+                                        child: Text(
+                                          "Login",
+                                          style: TextStyle(
+                                            color: AppColor.primary,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 17,
                                           ),
-                                          borderSide: const BorderSide(
-                                            color: AppColor.secondary,
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            10,
-                                          ),
-                                          borderSide: BorderSide(
-                                            color: AppColor.secondary,
-                                          ),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            10,
-                                          ),
-                                          borderSide: const BorderSide(
-                                            color: AppColor.primaryRed,
-                                            width: 2,
-                                          ),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            10,
-                                          ),
-                                          borderSide: const BorderSide(
-                                            color: AppColor.primaryRed,
-                                          ),
-                                        ),
-                                        floatingLabelBehavior:
-                                            FloatingLabelBehavior.auto,
-                                        suffixIcon: IconButton(
-                                          icon: Icon(
-                                            _obscureText
-                                                ? Icons.visibility_off
-                                                : Icons.visibility,
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              _obscureText = !_obscureText;
-                                            });
-                                          },
                                         ),
                                       ),
                                     ),
@@ -225,12 +142,12 @@ Widget _buildTextFormField({
   required TextInputType keyboardType,
   required String labelText,
   required IconData icon,
-  String? Function(String?)? validator,
   bool obscureText = false,
   Widget? suffixIcon,
+  String? Function(String?)? validator,
 }) {
   return Container(
-    margin: EdgeInsets.only(top: 20),
+    margin: EdgeInsets.only(top: 25),
     child: TextFormField(
       validator: validator,
       controller: controller,
@@ -253,7 +170,7 @@ Widget _buildTextFormField({
         fillColor: AppColor.primary,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: AppColor.secondary),
+          borderSide: const BorderSide(color: AppColor.inactive),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -268,7 +185,7 @@ Widget _buildTextFormField({
           borderSide: const BorderSide(color: AppColor.primaryRed),
         ),
         floatingLabelBehavior: FloatingLabelBehavior.auto,
-        suffixIcon: suffixIcon
+        suffixIcon: suffixIcon,
       ),
     ),
   );
