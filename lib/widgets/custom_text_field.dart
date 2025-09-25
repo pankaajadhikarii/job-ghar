@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:job_ghar/core/constant/app_color.dart';
 
-Widget buildTextFormField({
+Widget customTextFormField({
   required TextEditingController controller,
   required TextInputType keyboardType,
   required String labelText,
