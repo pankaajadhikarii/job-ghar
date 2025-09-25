@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    buildTextFormField(
+                                    customTextFormField(
                                       controller: _emailController,
                                       keyboardType: TextInputType.text,
                                       labelText: "Email",
@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         return null;
                                       },
                                     ),
-                                    buildTextFormField(
+                                    customTextFormField(
                                       controller: _passwordController,
                                       keyboardType:
                                           TextInputType.visiblePassword,
