@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:job_ghar/core/constant/app_color.dart';
+import 'package:job_ghar/view_model/auth/auth_view_model.dart';
 import 'package:job_ghar/widgets/custom_text_field.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,6 +17,30 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscureText = true;
+  bool _isLoading = false;
+
+  void _handleLogin() async {
+    if (!(_formKey.currentState?.validate() ?? false)) return;
+    setState(() => _isLoading = true);
+
+    final loginProvider = Provider.of<AuthProvider>(context, listen: false);
+
+    bool success = await loginProvider.login(
+      _emailController.text.trim(),
+      _passwordController.text,
+    );
+
+    if (success) {
+      context.go('/dashboard');
+    } else {
+      final error = loginProvider.errorMessage ?? "Login Failed";
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(error)));
+    }
+
+    setState(() => _isLoading = false);
+  }
 
   @override
   void dispose() {
@@ -64,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   children: [
                                     customTextFormField(
                                       controller: _emailController,
-                                      keyboardType: TextInputType.text,
+                                      keyboardType: TextInputType.emailAddress,
                                       labelText: "Email",
                                       icon: Icons.email_outlined,
                                       validator: (value) {
@@ -107,7 +134,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: AppColor.secondary,
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            _handleLogin();
+                                          }
+                                        },
                                         child: Text(
                                           "Login",
                                           style: TextStyle(
@@ -137,5 +169,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-
