@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:job_ghar/view/auth/login_screen.dart';
 import 'package:job_ghar/view/auth/signup_screen.dart';
+import 'package:job_ghar/view/dashboard/dashboard.dart';
 import 'package:job_ghar/view/home/home_screen.dart';
 import 'package:job_ghar/view_model/auth/auth_view_model.dart';
 
@@ -22,11 +23,8 @@ class AppRouter {
           return '/login-screen';
         }
         if (!isLoggedIn) {
-          if (![
-            '/login',
-            '/signup',
-          ].contains(currentPath)) {
-            return '/login';
+          if (!['/login-screen', '/signup-screen'].contains(currentPath)) {
+            return '/login-screen';
           }
         }
         return null;
@@ -41,8 +39,16 @@ class AppRouter {
           builder: (context, state) => const SignupScreen(),
         ),
         GoRoute(
-          path: '/home-screen',
-          builder: (context, state) => const HomeScreen(),
+          path: '/dashboard',
+          name: 'dashboard',
+          builder: (context, state) => const Dashboard(),
+          routes: [
+            GoRoute(
+              path: '/dashboard/home-screen',
+              name: 'home-screen',
+              builder: (context, state) => const HomeScreen(),
+            ),
+          ],
         ),
       ],
     );

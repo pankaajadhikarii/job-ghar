@@ -1,8 +1,8 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 class SharedPrefsService {
   static const String _tokenKey = "auth_token";
-  
-  static get SharedPreferences => null; 
-  
+
   static Future<void> saveToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_tokenKey, token);
@@ -14,7 +14,7 @@ class SharedPrefsService {
   }
 
   static Future<void> clearToken() async {
-    final prefs = await SharedPreferences.getInstance();  
+    final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_tokenKey);
   }
 }

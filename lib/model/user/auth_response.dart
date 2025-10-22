@@ -1,4 +1,4 @@
-import 'package:job_ghar/model/user/auth_requests.dart';
+import 'package:job_ghar/model/user/auth_model.dart';
 import 'package:job_ghar/model/user/base_user.dart';
 
 
